@@ -1,1 +1,1 @@
-## 1. lab, Mikroprogramiranje
+## 1. lab. Mikroprogramiranje
