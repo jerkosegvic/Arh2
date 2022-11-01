@@ -1,0 +1,23 @@
+// ====================== PRIBAVI =======================
+fetch0: a_sel=7, b_sel=7, alu_sel=OR, mar_sel=LOAD; // MAR <- PC
+fetch1: ir1_sel=LOAD, read, if wait then goto fetch1 endif; // IR_high <- MEM(MAR)
+fetch2: a_sel=7, c_in, alu_sel=ADDA, r7_write; // PC <- PC+1
+fetch3: a_sel=7, b_sel=7, alu_sel=OR, mar_sel=LOAD; // MAR <- PC
+fetch4: ir0_sel=LOAD, read, if wait then goto fetch4 endif; // IR_low <- MEM(MAR)
+fetch5: a_sel=7, c_in, alu_sel=ADDA, r7_write, goto opcode[IR_OPCODE]; // PC <- PC+1
+// ============= DIO OPERACIJSKIH KODOVA =============
+// 0) NOP
+opcode[0]: goto fetch0;
+// 1) LOAD_IMMEDIATE (ri <- ir_const8)
+opcode[1]: result_sel=IR_CONST8, ri_sel, goto fetch0;
+// 2) ADD (ri <- rj + rk)
+opcode[2]: ri_sel, rj_sel, rk_sel, alu_sel=ADD, if m_7 then goto opcode2.1 else goto opcode2.2 endif;
+// 3) HALT
+opcode[3]: goto opcode[3];
+// ================= DIO EKSTENZIJE ================
+// postavi zastavicu N
+opcode2.1: a_sel=4, b_sel=4, alu_sel=XOR, r4_write; // pomocni registar r4 <- 0
+a_sel=4, c_in, alu_sel=ADDA, r6_write, goto fetch0; // r4=0 + c_in=1 -> r6 (SR)
+// obrisi zastavicu N
+opcode2.2: a_sel=4, b_sel=4; alu_sel=XOR, r4_write; // pomocni registar r4 <- 0
+a_sel=4, alu_sel=ADDA, r6_write, goto fetch0; // r4=0 -> r6 (SR)
