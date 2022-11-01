@@ -1,0 +1,17 @@
+Pocetni dio datoteke s makroprogramom, prije znaka %
+moze se koristiti za globalne komentare makroprograma.
+Pribroji neposredne konstante registru r0.
+% // Pocetak koda
+// LOAD_IMMEDIATE r0<- 3
+0: 000001 00 // vrijednosti mogu biti binarne (s razmacima)
+1: 3 // ili dekadske
+// LOAD_IMMEDIATE r1<- 2
+2: 000001 01
+3: 2
+// ADD r0 <- r0 + r1
+4: 000010 00
+5: 00 01 0000 // bin. vrijednosti mogu sadrzavati razmake
+// HALT
+6: 000011 00 // U r0 bi se sada trebalo nalaziti 5
+7: 0
+// Kraj
