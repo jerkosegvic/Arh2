@@ -1,0 +1,6 @@
+Za distribuciju Linux-a Fedora 36 bilo je potrebno instalirati sljedeće pakete iz dnf-a:
+
+- [ `intel-opencl` ] 
+- [`ocl-icd-devel `]
+
+Za prevođenje sam koristio naredbu:  `gcc proba.c -lOpenCL`
